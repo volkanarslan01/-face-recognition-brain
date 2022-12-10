@@ -5,20 +5,36 @@ import Rank from "./components/Rank/Rank";
 import Logo from "./components/Logo/Logo";
 import "./App.css";
 import "tachyons";
-function App() {
-  return (
-    <div className="App">
-      <Navigation />
-      <Logo />
-      <Rank />
-      <ImageLinkFrom />
-      {/* 
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      input: "",
+    };
+  }
+  onButtonSubmit = () => {
+    console.log("Click");
+  };
+  onInputChange = (event) => {
+    console.log(event.target.value);
+  };
+  render() {
+    return (
+      <div className="App">
+        <Navigation />
+        <Logo />
+        <Rank />
+        <ImageLinkFrom
+          onInputChange={this.onInputChange}
+          onButtonSubmit={this.onButtonSubmit}
+        />
+        {/* 
       
      
       <FaceRecognition/>
       */}
-    </div>
-  );
+      </div>
+    );
+  }
 }
-
 export default App;
