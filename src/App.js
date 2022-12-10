@@ -1,18 +1,20 @@
-import React from 'react';
-import { ReactDOM } from 'react-dom/client';
-import Navigation from './components/Navigation/Navigation';
-import Logo from './components/Logo/Logo';
-import './App.css';
-import 'tachyons';
+import React from "react";
+import Navigation from "./components/Navigation/Navigation";
+import ImageLinkFrom from "./components/ImageLinkFrom/ImageLinkFrom";
+import Rank from "./components/Rank/Rank";
+import Logo from "./components/Logo/Logo";
+import "./App.css";
+import "tachyons";
 function App() {
   return (
     <div className="App">
-     <Navigation/>
-     <Logo/>
-   
-     {/* 
+      <Navigation />
+      <Logo />
+      <Rank />
+      <ImageLinkFrom />
+      {/* 
       
-      <ImageLinkFrom/>
+     
       <FaceRecognition/>
       */}
     </div>
