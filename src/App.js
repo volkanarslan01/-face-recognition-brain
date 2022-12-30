@@ -1,17 +1,19 @@
 import React from "react";
-import Navigation from "./components/Navigation/Navigation";
 import Clarifai from "clarifai";
+import Navigation from "./components/Navigation/Navigation";
 import ImageLinkFrom from "./components/ImageLinkFrom/ImageLinkFrom";
 import Rank from "./components/Rank/Rank";
 import Logo from "./components/Logo/Logo";
+import FaceRecognition from "./components/FaceRecognition/FaceRecognition.js";
+import SignIn from "./components/SignIn/SignIn.js";
+import Register from "./components/Register/Register.js";
 import "./App.css";
 import "tachyons";
-import FaceRecognition from "./components/FaceRecognition/FaceRecognition.js";
 import Particle from "./components/Particles";
 
-const app = new Clarifai.App({
-  apiKey: "e908dde636da467285c367ce62b6bcf8",
-});
+// const app = new Clarifai.App({
+//   apiKey: "e908dde636da467285c367ce62b6bcf8",
+// });
 
 class App extends React.Component {
   constructor() {
@@ -20,6 +22,8 @@ class App extends React.Component {
       input: ``,
       imageUrl: ``,
       box: {},
+      router: "signin",
+      isSignedIn: false,
     };
   }
   calculateFaceLocation = (data) => {
@@ -42,29 +46,50 @@ class App extends React.Component {
   onInputChange = (event) => {
     this.setState({ input: event.target.value });
   };
-  onButtonSubmit = () => {
-    this.setState({ imageUrl: this.state.input });
-    app.models
-      .predict(Clarifai.GENERAL_MODEL, this.state.input)
-      .then((response) =>
-        this.displayFaceBox(this.calculateFaceLocation(response))
-      )
-      .catch((error) => console.log(error));
+  // onButtonSubmit = () => {
+  //   this.setState({ imageUrl: this.state.input });
+  //   app.models
+  //     .predict(Clarifai.GENERAL_MODEL, this.state.input)
+  //     .then((response) =>
+  //       this.displayFaceBox(this.calculateFaceLocation(response))
+  //     )
+  //     .catch((error) => console.log(error));
+  // };
+  onRouteChange = (route) => {
+    if (route === "signout") {
+      this.setState({ isSignedIn: false });
+    } else if (route === "Home") {
+      this.setState({ isSignedIn: true });
+    }
+    this.setState({ router: route });
   };
 
   render() {
+    const { isSignedIn, imageUrl, router, box } = this.state;
     return (
       <div className="App">
         <Particle />
-        <Navigation />
-        <Logo />
-        <Rank />
-        <ImageLinkFrom
-          onInputChange={this.onInputChange}
-          onButtonSubmit={this.onButtonSubmit}
+        <Navigation
+          onRouteChange={this.onRouteChange}
+          isSignedIn={isSignedIn}
         />
+        {router === "Home" ? (
+          <div>
+            <Logo />
 
-        <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} />
+            <Rank />
+            <ImageLinkFrom
+              onInputChange={this.onInputChange}
+              onButtonSubmit={this.onButtonSubmit}
+            />
+
+            <FaceRecognition box={box} imageUrl={imageUrl} />
+          </div>
+        ) : router === "signin" ? (
+          <SignIn onRouteChange={this.onRouteChange} />
+        ) : (
+          <Register onRouteChange={this.onRouteChange} />
+        )}
       </div>
     );
   }
