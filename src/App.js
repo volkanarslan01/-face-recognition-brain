@@ -24,8 +24,21 @@ class App extends React.Component {
       box: {},
       router: "signin",
       isSignedIn: false,
+      user: {
+        id: "",
+        name: "",
+        email: "",
+        password: "",
+        entries: 0,
+        joined: "",
+      },
     };
   }
+  // componentDidMount() {
+  //   fetch("http://localhost:3007")
+  //     .then((response) => response.json())
+  //     .then((res) => console.log(res));
+  // }
   calculateFaceLocation = (data) => {
     const clarifaiFace =
       data.outputs[0].data.regions[0].region_info.bounding_box;
