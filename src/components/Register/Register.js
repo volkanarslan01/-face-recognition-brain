@@ -18,7 +18,7 @@ class Register extends React.Component {
     this.setState({ password: event.target.value });
   };
   onSumbit = () => {
-    fetch("http://localhost:3007/signin", {
+    fetch("http://localhost:3007/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -28,8 +28,8 @@ class Register extends React.Component {
       }),
     })
       .then((response) => response.json())
-      .then((data) => {
-        if (data === "succesful") {
+      .then((user) => {
+        if (user === "succesful") {
           this.props.onRouteChange("Home");
         }
       });
