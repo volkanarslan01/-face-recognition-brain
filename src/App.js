@@ -44,6 +44,7 @@ class App extends React.Component {
       },
     });
   };
+
   // componentDidMount() {
   //   fetch("http://localhost:3007")
   //     .then((response) => response.json())
@@ -101,6 +102,7 @@ class App extends React.Component {
   };
 
   render() {
+    console.log(this.state.user, this.state.entries);
     const { isSignedIn, imageUrl, router, box } = this.state;
     return (
       <div className="App">

@@ -14,6 +14,8 @@ class SignIn extends React.Component {
     this.setState({ isSignPassword: event.target.value });
   };
   onSumbit = () => {
+    console.log(this.state.isSign);
+    console.log(this.state.isSignPassword);
     fetch("http://localhost:3007/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -24,8 +26,8 @@ class SignIn extends React.Component {
     })
       .then((response) => response.json())
       .then((user) => {
-        if (user.id) {
-          this.props.loadUser(user);
+        if (user[0].id) {
+          this.props.loadUser(user[0]);
           this.props.onRouteChange("Home");
         }
       });
